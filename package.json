@@ -1,0 +1,26 @@
+{
+  "name": "simple-zombie-shooter",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src debug",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "phaser": "^3.80.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "puppeteer-core": "^25.16.0",
+    "three": "^0.186.1",
+    "vite": "^5.4.0"
+  }
+}

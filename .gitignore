@@ -1,0 +1,6 @@
+node_modules/
+dist/
+kenney_pack/
+debug/
+# Исходные 3D-модели в корне: текстуры для игры уже извлечены в public/assets
+/*.glb
