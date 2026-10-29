@@ -98,5 +98,37 @@ export const LEVELS = [
       { tx: 9, ty: 13 }, { tx: 25, ty: 6 },
       { tx: 1, ty: 12 }, { tx: 16, ty: 19 }
     ]
+  },
+  {
+    name: 'Последняя застава',
+    width: 27,
+    height: 20,
+    playerSpawn: { tx: 2, ty: 10 },
+    // Центральный форт: стены с двумя воротами (разрывами в прогонах),
+    // ящики-укрытия внутри и снаружи
+    crates: [
+      { tx: 6, ty: 11 }, { tx: 20, ty: 9 }, { tx: 22, ty: 13 },
+      { tx: 11, ty: 16 }, { tx: 12, ty: 10 }, { tx: 15, ty: 10 },
+      { tx: 9, ty: 16 }, { tx: 24, ty: 4 }
+    ],
+    wallRuns: [
+      // Периметр форта с «воротами»: слева проём y=11-12, справа y=8-9
+      { from: { tx: 10, ty: 7 }, length: 8 },
+      { from: { tx: 10, ty: 13 }, length: 8 },
+      { from: { tx: 9, ty: 8 }, length: 3, vertical: true },
+      { from: { tx: 18, ty: 10 }, length: 3, vertical: true }
+    ],
+    trees: [
+      { tx: 20.5, ty: 3.5 },
+      { tx: 5, ty: 3 },
+      { tx: 25, ty: 15 },
+      { tx: 4, ty: 16 },
+      { tx: 13, ty: 18 }
+    ],
+    bushes: [
+      { tx: 6, ty: 6 }, { tx: 22, ty: 8 }, { tx: 16, ty: 2 },
+      { tx: 10, ty: 16 }, { tx: 24, ty: 12 }, { tx: 2, ty: 4 },
+      { tx: 20, ty: 17 }, { tx: 12, ty: 15 }, { tx: 17, ty: 16 }
+    ]
   }
 ];
