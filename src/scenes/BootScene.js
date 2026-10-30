@@ -80,42 +80,46 @@ export default class BootScene extends Phaser.Scene {
 
     /* Оружие в руках игрока: силуэты «смотрят вправо», правая грань
        полотна = кончик ствола (origin спрайта оружия — (1, 0.5)),
-       поэтому любой из них упирается ровно в точку muzzleLocal. */
+       поэтому любой из них упирается ровно в точку muzzleLocal.
+       Пропорции сознательно контрастные (11×4 / 22×6 / 19×7),
+       чтобы смена оружия читалась одним глазом. */
 
     // Пистолет: короткая болванка с рукоятью
     g.fillStyle(0x3a3a44, 1);
-    g.fillRect(0, 1, 12, 3);                // ствол/затвор
+    g.fillRect(0, 1, 11, 2);                // ствол/затвор
     g.fillStyle(0x6a6a78, 1);
-    g.fillRect(3, 1, 9, 1);                 // блик сверху
+    g.fillRect(3, 1, 8, 1);                 // блик сверху
     g.fillStyle(0x24242c, 1);
-    g.fillRect(1, 3, 3, 2);                 // рукоять
-    g.generateTexture('w_pistol', 12, 5);
+    g.fillRect(0, 2, 3, 2);                 // рукоять
+    g.generateTexture('w_pistol', 11, 4);
     g.clear();
 
     // Дробовик: ложа + приклад, двойной ствол, цевьё посередине
     g.fillStyle(0x6b4a2f, 1);
-    g.fillRect(0, 1, 5, 3);                 // деревянный приклад
-    g.fillStyle(0x7d5a39, 1);
-    g.fillRect(7, 2, 5, 3);                 // цевьё
+    g.fillRect(0, 1, 6, 4);                 // деревянный приклад
     g.fillStyle(0x44444e, 1);
-    g.fillRect(5, 0, 15, 2);                // ствол
+    g.fillRect(6, 1, 4, 3);                 // ресивер
+    g.fillStyle(0x7d5a39, 1);
+    g.fillRect(10, 3, 6, 2);                // цевьё
+    g.fillStyle(0x51525c, 1);
+    g.fillRect(6, 0, 16, 1);                // верхний ствол
     g.fillStyle(0x33333c, 1);
-    g.fillRect(5, 2, 15, 2);                // нижний ствол
+    g.fillRect(6, 4, 16, 2);                // нижний ствол
     g.fillStyle(0x8a8a96, 1);
-    g.fillRect(17, 0, 3, 1);                // блик дульного среза
-    g.generateTexture('w_shotgun', 20, 5);
+    g.fillRect(19, 0, 3, 1);                // блик дульного среза
+    g.generateTexture('w_shotgun', 22, 6);
     g.clear();
 
     // Автомат: приклад, приёмник, тонкий ствол, магазин вниз
     g.fillStyle(0x39343a, 1);
-    g.fillRect(0, 1, 4, 4);                 // приклад
+    g.fillRect(0, 2, 4, 4);                 // приклад
     g.fillStyle(0x3a3a44, 1);
-    g.fillRect(4, 2, 13, 2);                // ресивер + ствол
+    g.fillRect(4, 2, 5, 3);                 // ресивер
     g.fillStyle(0x666a72, 1);
-    g.fillRect(10, 2, 7, 1);                // светлый ствол
+    g.fillRect(9, 2, 10, 2);                // светлый ствол
     g.fillStyle(0x2b2b32, 1);
-    g.fillRect(8, 4, 3, 2);                 // магазин
-    g.generateTexture('w_rifle', 17, 6);
+    g.fillRect(6, 5, 3, 2);                 // магазин
+    g.generateTexture('w_rifle', 19, 7);
     g.clear();
 
     g.destroy();
