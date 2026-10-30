@@ -366,6 +366,8 @@ export default class GameScene extends Phaser.Scene {
    *  (updateVegetationVisibility работает только при playing). */
   restoreUnitAlpha() {
     if (this.player?.active) this.player.setAlpha(1);
+    // Оружие в руках живёт собственной альфой (syncWeaponSprite в update)
+    if (this.player?.weaponSprite?.active) this.player.weaponSprite.setAlpha(1);
     for (const z of this.zombies.children.entries) {
       if (z.active) z.setAlpha(1);
     }

@@ -6,6 +6,9 @@ import { sfx } from '../audio/sfx.js';
 /** «Дуло вплотную»: заряды с меньшей эффективной дальностью не вылетают */
 const MIN_EFFECTIVE = 8;
 
+/** Текстура оружия по его id: переключение клавишами 1/2/3 меняет вид в руках */
+const WEAPON_TEX = { pistol: 'w_pistol', shotgun: 'w_shotgun', rifle: 'w_rifle' };
+
 /**
  * Игрок: движение WASD, поворот к мыши, запас здоровья, стрельба.
  * Готов к расширению: новый контент — только новые конфиги в data/weapons.js.
@@ -43,12 +46,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     };
     this.currentWeapon = this.weapons.pistol;
     this.lastFiredAt = 0;
+
+    /** Оружие в руках: силуэт смотрит вправо, правая грань полотна упирается
+     *  в кончик ствола (muzzleLocal) — вылет пуль и визуал всегда совпадают. */
+    this.weaponSprite = scene.add
+      .image(x, y, WEAPON_TEX.pistol)
+      .setOrigin(1, 0.5)
+      .setDepth(DEPTH.WEAPON);
   }
 
   /** Переключение оружия (клавиши 1/2/3) */
   equip(weaponId) {
     if (this.weapons[weaponId]) {
       this.currentWeapon = this.weapons[weaponId];
+      // Видимый силуэт следует за выбором
+      this.weaponSprite.setTexture(WEAPON_TEX[weaponId]);
     }
   }
 
@@ -63,6 +75,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   update(time) {
     this.updateMovement();
     this.rotateToPointer();
+    this.syncWeaponSprite();
     this.handleShooting(time);
   }
 
@@ -91,6 +104,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     const worldPoint = pointer.positionToCamera(this.sceneRef.cameras.main);
     const angle = Phaser.Math.Angle.Between(this.x, this.y, worldPoint.x, worldPoint.y);
     this.setRotation(angle);
+  }
+
+  /** Оружие держим в руках: правая грань на кончике ствола, поворот общий,
+   *  альфа наследуется от тела (правило «под кроной/в кусте» — как у игрока). */
+  syncWeaponSprite() {
+    const ws = this.weaponSprite;
+    const grip = new Phaser.Math.Vector2(this.muzzleLocal.x, this.muzzleLocal.y);
+    grip.rotate(this.rotation);
+    ws.setPosition(this.x + grip.x, this.y + grip.y);
+    ws.setRotation(this.rotation);
+    ws.setAlpha(this.alpha);
   }
 
   /** Точка вылета пули (срез ствола) в мировых координатах, с учётом поворота */

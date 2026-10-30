@@ -78,6 +78,46 @@ export default class BootScene extends Phaser.Scene {
     g.generateTexture('ammoBox', 18, 14);
     g.clear();
 
+    /* Оружие в руках игрока: силуэты «смотрят вправо», правая грань
+       полотна = кончик ствола (origin спрайта оружия — (1, 0.5)),
+       поэтому любой из них упирается ровно в точку muzzleLocal. */
+
+    // Пистолет: короткая болванка с рукоятью
+    g.fillStyle(0x3a3a44, 1);
+    g.fillRect(0, 1, 12, 3);                // ствол/затвор
+    g.fillStyle(0x6a6a78, 1);
+    g.fillRect(3, 1, 9, 1);                 // блик сверху
+    g.fillStyle(0x24242c, 1);
+    g.fillRect(1, 3, 3, 2);                 // рукоять
+    g.generateTexture('w_pistol', 12, 5);
+    g.clear();
+
+    // Дробовик: ложа + приклад, двойной ствол, цевьё посередине
+    g.fillStyle(0x6b4a2f, 1);
+    g.fillRect(0, 1, 5, 3);                 // деревянный приклад
+    g.fillStyle(0x7d5a39, 1);
+    g.fillRect(7, 2, 5, 3);                 // цевьё
+    g.fillStyle(0x44444e, 1);
+    g.fillRect(5, 0, 15, 2);                // ствол
+    g.fillStyle(0x33333c, 1);
+    g.fillRect(5, 2, 15, 2);                // нижний ствол
+    g.fillStyle(0x8a8a96, 1);
+    g.fillRect(17, 0, 3, 1);                // блик дульного среза
+    g.generateTexture('w_shotgun', 20, 5);
+    g.clear();
+
+    // Автомат: приклад, приёмник, тонкий ствол, магазин вниз
+    g.fillStyle(0x39343a, 1);
+    g.fillRect(0, 1, 4, 4);                 // приклад
+    g.fillStyle(0x3a3a44, 1);
+    g.fillRect(4, 2, 13, 2);                // ресивер + ствол
+    g.fillStyle(0x666a72, 1);
+    g.fillRect(10, 2, 7, 1);                // светлый ствол
+    g.fillStyle(0x2b2b32, 1);
+    g.fillRect(8, 4, 3, 2);                 // магазин
+    g.generateTexture('w_rifle', 17, 6);
+    g.clear();
+
     g.destroy();
   }
 }
