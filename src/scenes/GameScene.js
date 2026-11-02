@@ -19,6 +19,7 @@ import {
   shiftSprite
 } from '../physics/depenetration.js';
 import { clampBulletRange } from '../physics/raycast.js';
+import { buildNavGrid } from '../physics/steering.js';
 import {
   manageWaves as manageWavesSys,
   startWave as startWaveSys,
@@ -68,6 +69,9 @@ export default class GameScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, this.worldSize.width, this.worldSize.height);
 
     buildLevel(this, level);
+    // Нав-сетка для BFS-обхода препятствий (physics/steering.js) —
+    // зависит от геометрии уровня, пересоздаётся на каждый create
+    buildNavGrid(this);
     this.createPlayer(level);
     this.createBullets();
     this.createZombies();

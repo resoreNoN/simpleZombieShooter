@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import { DEPTH } from '../data/depth.js';
+import { chaseAngle } from '../physics/steering.js';
 
 /**
- * Зомби: прямое движение к игроку (без поиска пути), урон при контакте.
+ * Зомби: погоня к игроку с рулевым обходом препятствий, урон при контакте.
  */
 export default class Zombie extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, config) {
@@ -42,7 +43,10 @@ export default class Zombie extends Phaser.Physics.Arcade.Sprite {
     if (!this.active || gameState !== 'playing') return;
 
     const player = this.scene.player;
-    const angle = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
+    // Рулевой угол: прямая линия, если видна; обход по пробам, если нет;
+    // вдоль стены, если всё занято (см. physics/steering.js)
+    const directAngle = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
+    const angle = chaseAngle(this.scene, this, time, directAngle);
     this.setRotation(angle);
     this.scene.physics.velocityFromRotation(angle, this.speed, this.body.velocity);
 
